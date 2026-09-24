@@ -33,3 +33,11 @@ extracted_frames/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# ----------------------------------------------------------------------
+# Large sample videos
+# ----------------------------------------------------------------------
+# The sample clip used by traffic_object_detection/ is not stored here: the
+# same video is already tracked as video_activity_recognition/traffic.mp4 and
+# can be copied next to the script before running it.
+traffic_object_detection/traffic.mp4

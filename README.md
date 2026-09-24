@@ -19,6 +19,12 @@ aidriven/
 |
 |-- motion_reports/               # Motion reports (.csv) and heatmaps (.png)
 |
+|-- traffic_object_detection/     # Experiment: MOG2 traffic object detection
+|   |-- traffic_object_detection.py  # MOG2 + threshold + morphology + contours
+|   |-- traffic.mp4               # Sample video (not tracked, see .gitignore)
+|   |-- README.md                 # Aim, algorithm and explanations (lab report)
+|   |-- requirements.txt
+|
 |-- video_activity_recognition/   # Experiments 06 and 07
 |   |-- exp6.py                   # CNN feature extraction + MOG2 object detection
 |   |-- 7exp.py                   # Activity recognition with NumPy RNN and LSTM
@@ -73,6 +79,21 @@ python motion_detection.py "path/to/video.mp4"
 python motion_detection.py "path/to/video.mp4" --threshold 25 --report
 ```
 
+Motion-level thresholds: MAD `< 5.0` and changed pixels `< 10 %` is `Low`,
+MAD `< 15.0` is `Medium`, otherwise `High`.
+
+### `motion_detection_live.py`
+Plays a video while performing real-time motion detection with optical flow.
+Green arrows show the motion direction, together with a live motion score bar,
+the current motion level, a frame counter and the FPS.
+
+Controls: `Space` pause / resume, `Q` or `Esc` quit.
+
+### `library_check.py`
+Prints the installed versions of OpenCV, TensorFlow, PyTorch and Transformers,
+plus the available TensorFlow GPU devices, PyTorch CUDA availability and the
+GPU name.
+
 ### `video_activity_recognition/exp6.py` — Experiment 06
 CNN-based video feature extraction:
 
@@ -117,6 +138,27 @@ python traffic_detection.py --video path/to/video.mp4
 python traffic_detection.py --video traffic.mp4 --interval 20 --min-area 500
 ```
 
+### `traffic_object_detection/traffic_object_detection.py`
+College-laboratory implementation of traffic object detection with fixed
+parameters: resize to 800 x 600, MOG2 (`history=500`, `varThreshold=50`,
+`detectShadows=True`), binary threshold at 200, 5 x 5 opening followed by 2
+dilations, contours with area > 500, green boxes with object numbers. Press
+`Q` to stop; at the end it prints the total frames, average objects, average
+time per frame and processing FPS.
+
+```bash
+cd traffic_object_detection
+
+# traffic.mp4 is a video file and is therefore not tracked by git;
+# copy the sample clip that is already in this repository:
+copy ..\video_activity_recognition\traffic.mp4 .
+
+python traffic_object_detection.py
+```
+
+`traffic_object_detection/README.md` contains the aim, the algorithm and the
+explanations of MOG2, thresholding, morphology and contours.
+
 ## Setup
 
 The scripts share one Python 3.12 virtual environment at the repository root.
@@ -134,8 +176,11 @@ python library_check.py
 ## Notes
 
 The virtual environments (`ai_video_env/`, `Lib/`, `Scripts/`,
-`traffic_detection_project/venv/`) and the generated frames
-(`extracted_frames/`) are intentionally **not** tracked - see `.gitignore`.
+`traffic_detection_project/venv/`), the generated frames
+(`extracted_frames/`) and the sample video
+`traffic_object_detection/traffic.mp4` (7 MB - copy it from
+`video_activity_recognition/` before running that experiment) are
+intentionally **not** tracked - see `.gitignore`.
 Install the dependencies with the commands above (or the per-project
 `requirements.txt` files) and regenerate the frames with `extract_frames.py`.
 
@@ -145,18 +190,3 @@ Install the dependencies with the commands above (or the per-project
 - OpenCV (`opencv-python`), NumPy, Matplotlib
 - PyTorch + torchvision (CNN feature extraction)
 - TensorFlow + Transformers (environment check only)
-
-Motion-level thresholds: MAD `< 5.0` and changed pixels `< 10 %` is `Low`,
-MAD `< 15.0` is `Medium`, otherwise `High`.
-
-### `motion_detection_live.py`
-Plays a video while performing real-time motion detection with optical flow.
-Green arrows show the motion direction, together with a live motion score bar,
-the current motion level, a frame counter and the FPS.
-
-Controls: `Space` pause / resume, `Q` or `Esc` quit.
-
-### `library_check.py`
-Prints the installed versions of OpenCV, TensorFlow, PyTorch and Transformers,
-plus the available TensorFlow GPU devices, PyTorch CUDA availability and the
-GPU name.
