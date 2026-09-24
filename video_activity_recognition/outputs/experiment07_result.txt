@@ -1,0 +1,14 @@
+Experiment 07 - Video Activity Recognition Using RNN and LSTM
+==================================================================
+Video      : c:\Users\tevee\OneDrive\Desktop\aidriven\video_activity_recognition\traffic.mp4
+FPS        : 30.00
+Resolution : 960 x 720
+Frames     : 1248  duration 41.60 s
+Feature seq: (20, 64)   (20 equally spaced frames)
+RNN output : (20, 32)
+LSTM output: (20, 32)
+------------------------------------------------------------------
+average_motion     : 0.6233
+temporal_variation : 0.0036
+activity_score     : 0.8017
+=> Walking / Normal Movement

@@ -1,0 +1,35 @@
+# ----------------------------------------------------------------------
+# Virtual environments / installed packages
+# ----------------------------------------------------------------------
+# The main environment is ~2.5 GB and contains files larger than GitHub's
+# 100 MB per-file limit, so it must never be committed.
+ai_video_env/
+Lib/
+Scripts/
+venv/
+env/
+.venv/
+*.egg-info/
+
+# ----------------------------------------------------------------------
+# Python caches
+# ----------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyc
+.pytest_cache/
+
+# ----------------------------------------------------------------------
+# Generated experiment output
+# ----------------------------------------------------------------------
+# Frames extracted by extract_frames.py (regenerable from the source video)
+extracted_frames/
+
+# ----------------------------------------------------------------------
+# Editors / OS
+# ----------------------------------------------------------------------
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store
